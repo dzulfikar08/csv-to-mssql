@@ -7,7 +7,9 @@ function handleFileSelect(event) {
     
     reader.onload = function (e) {
       const csvText = e.target.result;
-      const rows = csvText.split('\n').map(row => row.split(','));
+      const separator = [',', '\t', '|', ';'].find(s => csvText.includes(s));
+      if (!separator) throw new Error('No separator found in the CSV file');
+      const rows = csvText.split('\n').map(row => row.split(separator));
       generateSQL(rows);
     };
     
