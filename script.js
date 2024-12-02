@@ -17,7 +17,10 @@ function handleFileSelect(event) {
   }
 function convertCsvToSql() {
     const csvText = document.getElementById('csvInput').value;
-    const rows = csvText.split('\n').map(row => row.split(',').map(cell => cell.trim()));
+    const separator = [ '\t', ',', '|', ';'].find(s => csvText.includes(s));
+    if (!separator) throw new Error('No separator found in the CSV text');
+    console.log(separator)
+    const rows = csvText.split('\n').map(row => row.split(separator).map(cell => cell.trim()));
   
     if (rows.length === 0) return;
     generateSQL(rows)
@@ -58,12 +61,14 @@ function convertCsvToSql() {
   function detectAndEscapeValue(value) {
     // Check if the value is a number or boolean, otherwise treat as a string
     value = value.replace(/"/g, '');
-    if (!isNaN(value) && value.trim() !== '') {
-      return value; // Return as a number
-    } else if (value === 'NULL'){
+    if (value === 'NULL'){
         return 'NULL';
+    } else if (value === ''){
+        return 'NULL'
     } else if (value.toLowerCase() === 'true' || value.toLowerCase() === 'false') {
-      return value.toLowerCase(); // Return as a boolean
+      return value.toLowerCase() === 'true' ? 1 : 0; // Return as bit
+    } else if (!isNaN(value) && value.trim() !== '') {
+      return String(value); // Return as a string
     } else {
       return `'${value.replace(/'/g, "''")}'`; // Escape single quotes and wrap in quotes for strings
     }
