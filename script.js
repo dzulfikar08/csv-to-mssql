@@ -68,7 +68,7 @@ function convertCsvToSql() {
     } else if (value.toLowerCase() === 'true' || value.toLowerCase() === 'false') {
       return value.toLowerCase() === 'true' ? 1 : 0; // Return as bit
     } else if (!isNaN(value) && value.trim() !== '') {
-      return String(value); // Return as a string
+      return `'${value}'`; // Return as a string
     } else {
       return `'${value.replace(/'/g, "''")}'`; // Escape single quotes and wrap in quotes for strings
     }

@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CSV to SQL Converter</title>
+  <title>CSV to MSSQL Converter</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
   <link href="prism.css" rel="stylesheet" />
   <style>
     body { font-family: Arial, sans-serif; background-color: #f9f9f9; color: #333; }
@@ -15,7 +16,7 @@
 </head>
 <body>
   <div class="container">
-    <h1>CSV to SQL Converter</h1>
+    <h1>CSV to MSSQL Converter</h1>
     <label for="csvInput">Paste CSV Text:</label>
     <textarea id="csvInput" rows="5" placeholder="Paste CSV text here..."></textarea>
     <br>
@@ -26,7 +27,7 @@
     <input type="text" id="tableName" placeholder="Enter table name" defaultValue="your_table_name"/>
     <button onclick="convertCsvToSql()">Convert to SQL</button>
     
-    <h2>Generated SQL Statements</h2>
+    <h2>Generated Insert SQL Statements</h2>
     <button onclick="copyToClipboard()">Copy to Clipboard</button>
     <pre><code id="sqlOutput" class="language-sql"></code></pre>
   </div>
@@ -35,3 +36,4 @@
   <script src="script.js"></script>
 </body>
 </html>
+
